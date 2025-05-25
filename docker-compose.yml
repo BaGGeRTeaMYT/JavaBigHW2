@@ -29,6 +29,8 @@ services:
   file-storing-service:
     build: ./file-storing-service
     container_name: file-storing-service
+    ports:
+      - "8081:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/textscanner_files
       SPRING_DATASOURCE_USERNAME: postgres
@@ -40,6 +42,8 @@ services:
   file-analysis-service:
     build: ./file-analysis-service
     container_name: file-analysis-service
+    ports:
+      - "8082:8082"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/textscanner_analysis
       SPRING_DATASOURCE_USERNAME: postgres

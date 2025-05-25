@@ -12,27 +12,27 @@ spring:
     gateway:
       routes:
         - id: file-storing-service
-          uri: http://file-storing-service:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/api/files/**
         - id: file-analysis-service
-          uri: http://file-analysis-service:8082
+          uri: http://localhost:8082
           predicates:
             - Path=/api/analysis/**
         - id: swagger-ui
           uri: http://localhost:${server.port}
           predicates:
-            - Path=/swagger-ui/**,/webjars/**
+            - Path=/
           filters:
             - StripPrefix=0
         - id: swagger-api-docs-storing
-          uri: http://file-storing-service:8081
+          uri: http://localhost:8081/swagger-ui/index.html
           predicates:
             - Path=/v3/api-docs/file-storing/**
           filters:
             - RewritePath=/v3/api-docs/file-storing/(?<segment>.*), /v3/api-docs/$\{segment}
         - id: swagger-api-docs-analysis
-          uri: http://file-analysis-service:8082
+          uri: http://localhost:8082/swagger-ui/index.html
           predicates:
             - Path=/v3/api-docs/file-analysis/**
           filters:
