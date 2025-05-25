@@ -1,0 +1,67 @@
+server:
+  port: 8080
+  netty:
+    max-header-size: 96KB
+  max-http-header-size: 128KB
+  max-http-request-header-size: 96KB
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: file-storing-service
+          uri: http://file-storing-service:8081
+          predicates:
+            - Path=/api/files/**
+        - id: file-analysis-service
+          uri: http://file-analysis-service:8082
+          predicates:
+            - Path=/api/analysis/**
+        - id: swagger-ui
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/swagger-ui/**,/webjars/**
+        - id: swagger-api-docs-storing
+          uri: http://file-storing-service:8081
+          predicates:
+            - Path=/v3/api-docs/file-storing/**
+          filters:
+            - RewritePath=/v3/api-docs/file-storing/(?<segment>.*), /v3/api-docs/$\{segment}
+        - id: swagger-api-docs-analysis
+          uri: http://file-analysis-service:8082
+          predicates:
+            - Path=/v3/api-docs/file-analysis/**
+          filters:
+            - RewritePath=/v3/api-docs/file-analysis/(?<segment>.*), /v3/api-docs/$\{segment}
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+        - name: RequestSize
+          args:
+            maxSize: 10MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
+    urls:
+      - name: File Storing Service
+        url: /v3/api-docs/file-storing
+      - name: File Analysis Service
+        url: /v3/api-docs/file-analysis
+    use-root-path: true
+    config-url: /v3/api-docs/swagger-config
+    urls-primary-name: File Storing Service
+    disable-swagger-default-url: true
+  api-docs:
+    enabled: true
+  cache:
+    disabled: true
+  webjars:
+    prefix: /webjars
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info 

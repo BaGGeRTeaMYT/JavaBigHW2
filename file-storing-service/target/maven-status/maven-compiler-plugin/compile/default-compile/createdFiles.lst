@@ -1,0 +1,7 @@
+com\textscanner\filestore\controller\FileController.class
+com\textscanner\filestore\repository\StoredFileRepository.class
+com\textscanner\filestore\model\StoredFile.class
+com\textscanner\filestore\config\OpenApiConfig.class
+com\textscanner\filestore\FileStoringServiceApplication.class
+com\textscanner\filestore\service\FileStorageService.class
+com\textscanner\filestore\controller\HomeController.class

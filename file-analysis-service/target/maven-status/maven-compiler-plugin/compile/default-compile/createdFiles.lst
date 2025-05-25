@@ -1,0 +1,8 @@
+com\textscanner\analysis\config\OpenApiConfig.class
+com\textscanner\analysis\controller\AnalysisController.class
+com\textscanner\analysis\FileAnalysisServiceApplication.class
+com\textscanner\analysis\controller\HomeController.class
+com\textscanner\analysis\model\TextAnalysis.class
+com\textscanner\analysis\repository\TextAnalysisRepository.class
+com\textscanner\analysis\service\TextAnalysisService.class
+com\textscanner\analysis\client\FileStorageClient.class
